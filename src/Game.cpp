@@ -174,10 +174,14 @@ void Game::Update() {
 
 void Game::Draw() {
     BeginDrawing();
+    TraceLog(LOG_INFO, "Draw inicio");
+
     Color skyColor = (clock.hours >= 19 || clock.hours < 6) ? Color{10, 10, 25, 255} : Color{70, 85, 110, 255};
     ClearBackground(skyColor);
+    TraceLog(LOG_INFO, "ClearBackground OK");
 
     BeginMode2D(camera);
+    TraceLog(LOG_INFO, "BeginMode2D OK");
         // Draw World Tiles with identity
         const int TS = 44; // tile size en spritesheet
         for(int x = 0; x < 40; x++) {
@@ -200,6 +204,7 @@ void Game::Draw() {
                     { 0, 0 }, 0, WHITE);
             }
         }
+        TraceLog(LOG_INFO, "Tiles OK");
 
         for(auto& cr : criers) {
             Vector2 iso = ToIso(cr.pos.x, cr.pos.y);
@@ -225,6 +230,7 @@ void Game::Draw() {
                 DrawRectangle(iso.x - 20, iso.y - 75, (int)(40 * c.patience/100.0f), 4, LIME);
             }
         }
+        TraceLog(LOG_INFO, "Customers OK");
 
         // Draw Player (Special Rogue)
         Vector2 pIso = ToIso(playerPos.x, playerPos.y);
@@ -235,8 +241,10 @@ void Game::Draw() {
             DrawRectangle(pIso.x - 30, pIso.y - 85, (int)(60 * state.sellingProgress), 6, GOLD);
         }
     EndMode2D();
+    TraceLog(LOG_INFO, "EndMode2D OK");
     
     DrawHUD();
+    TraceLog(LOG_INFO, "HUD OK");
 
     if (state.dayEnded) {
         DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Fade(BLACK, 0.85f));
