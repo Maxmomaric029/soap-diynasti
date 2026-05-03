@@ -28,5 +28,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: SoapDynasty-exe
-          path: build/Release/SoapDynasty.exe
+          name: SoapDynasty-Windows
+          path: build/Release/
