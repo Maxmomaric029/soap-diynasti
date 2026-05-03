@@ -15,17 +15,18 @@ jobs:
         run: |
           vcpkg install raylib:x64-windows-static
 
-      - name: Compilar con g++
-        shell: bash
+      - name: Configurar CMake
         run: |
-          g++ src/main.cpp src/Game.cpp src/World.cpp -o SoapDynasty.exe \
-            -Isrc \
-            -IC:/vcpkg/installed/x64-windows-static/include \
-            -LC:/vcpkg/installed/x64-windows-static/lib \
-            -lraylib -lopengl32 -lgdi32 -lwinmm \
-            -static -static-libgcc -static-libstdc++
+          cmake -S . -B build `
+            -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake `
+            -DVCPKG_TARGET_TRIPLET=x64-windows-static `
+            -DCMAKE_BUILD_TYPE=Release
+
+      - name: Compilar
+        run: |
+          cmake --build build --config Release
 
       - uses: actions/upload-artifact@v4
         with:
           name: SoapDynasty-exe
-          path: SoapDynasty.exe
+          path: build/Release/SoapDynasty.exe
