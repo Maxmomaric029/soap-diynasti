@@ -11,6 +11,7 @@ Vector2 ToIso(float x, float y) {
 }
 
 Game::Game() {
+    TraceLog(LOG_INFO, "Iniciando constructor de Game...");
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Soap Dynasty - Visual Update");
     SetTargetFPS(60);
     
@@ -283,9 +284,11 @@ void Game::DrawHUD() {
 }
 
 void Game::Run() {
+    TraceLog(LOG_INFO, "Entrando al bucle principal Run()...");
     while (!WindowShouldClose()) {
         HandleInput();
         Update();
         Draw();
     }
+    TraceLog(LOG_INFO, "Saliendo del bucle principal Run()...");
 }
