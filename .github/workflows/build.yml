@@ -16,9 +16,9 @@ jobs:
           vcpkg install raylib:x64-windows
 
       - name: Compilar con g++
+        shell: bash
         run: |
           g++ src/main.cpp src/Game.cpp src/World.cpp -o SoapDynasty.exe \
-            -Isrc \
             -IC:/vcpkg/installed/x64-windows/include \
             -LC:/vcpkg/installed/x64-windows/lib \
             -lraylib -lopengl32 -lgdi32 -lwinmm
