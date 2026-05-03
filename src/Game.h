@@ -55,7 +55,7 @@ private:
     
     // Assets
     Texture2D roguesTex;
-    Texture2D tilesTex;
+    Texture2D isoTex;
     Texture2D itemTex;
 
     Vector2 playerPos;

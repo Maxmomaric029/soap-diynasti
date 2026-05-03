@@ -16,7 +16,7 @@ Game::Game() {
     
     // Load 32Rogues Assets
     roguesTex = LoadTexture("assets/32rogues/32rogues/rogues.png");
-    tilesTex = LoadTexture("assets/32rogues/32rogues/tiles.png");
+    isoTex = LoadTexture("assets/isometric_tileset/isometric tileset/spritesheet.png");
     itemTex = LoadTexture("assets/32rogues/32rogues/items.png");
 
     playerPos = {15, 15};
@@ -33,7 +33,7 @@ Game::Game() {
 
 Game::~Game() {
     UnloadTexture(roguesTex);
-    UnloadTexture(tilesTex);
+    UnloadTexture(isoTex);
     UnloadTexture(itemTex);
     CloseWindow();
 }
@@ -178,14 +178,25 @@ void Game::Draw() {
 
     BeginMode2D(camera);
         // Draw World Tiles with identity
-        for(int x=0; x<40; x++) {
-            for(int y=0; y<40; y++) {
+        const int TS = 44; // tile size en spritesheet
+        for(int x = 0; x < 40; x++) {
+            for(int y = 0; y < 40; y++) {
                 Vector2 iso = ToIso(x, y);
-                Color col;
-                if (x > 10 && x < 20 && y > 10 && y < 20) col = {80, 80, 70, 255}; // Market Plaza (Stone)
-                else if (abs(x-y) < 2) col = {100, 90, 70, 255}; // Path (Dirt)
-                else col = {60, 90, 60, 255}; // Grass
-                DrawPoly(iso, 4, TILE_SIZE/1.4f, 0, col);
+
+                Rectangle src;
+                // Plaza de mercado = pavimento (fila 8)
+                if (x > 10 && x < 20 && y > 10 && y < 20)
+                    src = { 0, (float)TS * 8, (float)TS, (float)TS };
+                // Camino diagonal = tierra (fila 0)
+                else if (abs(x - y) < 2)
+                    src = { 0, (float)TS * 0, (float)TS, (float)TS };
+                // Resto = pasto (fila 2)
+                else
+                    src = { 0, (float)TS * 2, (float)TS, (float)TS };
+
+                DrawTexturePro(isoTex, src,
+                    { iso.x - TS/2.0f, iso.y - TS/2.0f, (float)TS, (float)TS },
+                    { 0, 0 }, 0, WHITE);
             }
         }
 
