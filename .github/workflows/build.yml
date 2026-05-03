@@ -13,7 +13,7 @@ jobs:
 
       - name: Instalar raylib via vcpkg
         run: |
-          vcpkg install raylib:x64-windows-static
+          vcpkg install raylib:x64-windows-static glfw3:x64-windows-static
 
       - name: Configurar CMake
         run: |

@@ -3,8 +3,9 @@ project(SoapDynasty)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Search for Raylib and dependencies
+# Search for Raylib and its dependencies
 find_package(raylib REQUIRED)
+find_package(glfw3 REQUIRED)
 
 # Include all source files
 add_executable(SoapDynasty 
@@ -15,12 +16,13 @@ add_executable(SoapDynasty
 
 target_include_directories(SoapDynasty PRIVATE src)
 
-# Link raylib. vcpkg's raylib target should handle most things, 
-# but we add system libs explicitly just in case for static builds.
-target_link_libraries(SoapDynasty PRIVATE raylib)
+# Link raylib, glfw and system libraries
+target_link_libraries(SoapDynasty PRIVATE 
+    raylib
+    glfw
+)
 
 if(WIN32)
-    # These are often required for static raylib linking on Windows
     target_link_libraries(SoapDynasty PRIVATE 
         winmm 
         opengl32 
