@@ -1,0 +1,29 @@
+name: Build Soap Dynasty
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar raylib via vcpkg
+        run: |
+          vcpkg install raylib:x64-windows
+
+      - name: Compilar con g++
+        run: |
+          g++ src/main.cpp src/Game.cpp src/World.cpp -o SoapDynasty.exe \
+            -Isrc \
+            -IC:/vcpkg/installed/x64-windows/include \
+            -LC:/vcpkg/installed/x64-windows/lib \
+            -lraylib -lopengl32 -lgdi32 -lwinmm
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SoapDynasty-exe
+          path: SoapDynasty.exe
