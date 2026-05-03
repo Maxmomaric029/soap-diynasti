@@ -7,7 +7,7 @@ const int TILE_SIZE = 64;
 const int SPRITE_SCALE = 2; // Scale 32x32 sprites to 64x64
 
 Vector2 ToIso(float x, float y) {
-    return { (x - y) * (TILE_SIZE / 2.0f), (x + y) * (TILE_SIZE / 4.0f) };
+    return { (x - y) * (TILE_SIZE / 2.0f), (x + y) * (TILE_SIZE / 3.5f) };
 }
 
 Game::Game() {
@@ -195,7 +195,7 @@ void Game::Draw() {
                     src = { 0, (float)TS * 2, (float)TS, (float)TS };
 
                 DrawTexturePro(isoTex, src,
-                    { iso.x - TS/2.0f, iso.y - TS/2.0f, (float)TS, (float)TS },
+                    { iso.x - 32, iso.y - 32, 64, 64 },
                     { 0, 0 }, 0, WHITE);
             }
         }
