@@ -185,9 +185,9 @@ void Game::Draw() {
                 Vector2 iso = ToIso(x, y);
 
                 Rectangle src;
-                // Plaza de mercado = pavimento (fila 8)
+                // Plaza de mercado = pavimento (fila 7)
                 if (x > 10 && x < 20 && y > 10 && y < 20)
-                    src = { 0, (float)TS * 8, (float)TS, (float)TS };
+                    src = { 0, (float)TS * 7, (float)TS, (float)TS };
                 // Camino diagonal = tierra (fila 0)
                 else if (abs(x - y) < 2)
                     src = { 0, (float)TS * 0, (float)TS, (float)TS };
